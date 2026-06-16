@@ -16,7 +16,7 @@ app.get('/' , (req,res) => {
 
 app.use('/task' , taskRouter)
 
-connectDB()
+// connectDB()
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`)
