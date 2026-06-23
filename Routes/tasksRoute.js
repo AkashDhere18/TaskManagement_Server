@@ -8,7 +8,11 @@ const {createTask,
     updateTask,
     deleteTask,
     getByStatus,
-    getByMonth} = require('../controllers/taskControllers')
+    getByMonth,
+    getAllTaskCount,
+    getTotalCompletedTask,
+    getTotalInProgressTask
+} = require('../controllers/taskControllers')
 
 const router = express.Router()
 
@@ -21,6 +25,10 @@ router.delete('/deleteTask/:ID', auth, admin, deleteTask)
 
 router.get('/getTaskByStatus/search' , getByStatus)
 router.get('/getTaskBySelectedMonth/search', getByMonth)
+
+router.get('/getAllTaskCount', getAllTaskCount)
+router.get('/getTotalCompletedTask', getTotalCompletedTask)
+router.get('/getTotalInprogressTask', getTotalInProgressTask)
 
 
 module.exports = router

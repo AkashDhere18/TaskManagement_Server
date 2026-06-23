@@ -74,6 +74,33 @@ const getUserInfo = async (req,res) => {
     }
 }
 
+async function getAllUser(req,res){
+    try {
+        const users =await User.findAll({
+            attributes: {
+                exclude: ['password']
+            }
+        })
+
+        res.status(200).send({users:users , succese:true})
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg:"Server error", succese:false})
+    }
+}
+
+async function TotalUsers(req,res){
+    try {
+        const usersCount =await User.count()
+
+        res.status(200).send({usersCount:usersCount , succese:true})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg:"Server error", succese:false})
+    }
+}
+
 module.exports = {
-    register,login,getUserInfo
+    register,login,getUserInfo,TotalUsers,getAllUser
 }

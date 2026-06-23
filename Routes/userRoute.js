@@ -4,14 +4,18 @@ const {auth,admin} = require('../middleware/auth')
 const {
     register,
     login,
-    getUserInfo
+    getUserInfo,
+    getAllUser,
+    TotalUsers
 } = require('../controllers/userController')
 
 const router = express.Router()
 
 router.post('/register', register)
-router.get('/login' , login)
+router.post('/login' , login)
 router.get('/getUserInfo' ,auth, getUserInfo)
+router.get('/getAllUser', getAllUser )
+router.get('/totalUser', TotalUsers)
 
 
 

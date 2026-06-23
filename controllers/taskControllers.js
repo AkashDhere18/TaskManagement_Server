@@ -32,6 +32,16 @@ async function getAllTask(req,res){
     }
 }
 
+async function getAllTaskCount(req,res){
+    try {
+        const tasksCount =await Task.count()
+        res.status(200).send({TotalTasks:tasksCount , succese:true})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg:"Server error", succese:false})
+    }
+}
+
 async function getByID(req,res){
 
     const ID = req.params.ID 
@@ -144,6 +154,36 @@ async function getByStatus(req,res){
     }
 }
 
+async function getTotalCompletedTask(req,res){
+    try {
+    
+
+        const completed = await Task.count({where:{status:"Completed"}})
+
+
+        res.status(200).send({succese:true,TotalCompleted:completed})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg:"Server error", succese:false})
+    }
+}
+
+async function getTotalInProgressTask(req,res){
+    try {
+    
+
+        const Inprogress = await Task.count({where:{status:"Inprogress"}})
+
+
+        res.status(200).send({succese:true,TotalInprogress:Inprogress})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg:"Server error", succese:false})
+    }
+}
+
 async function getByMonth(req,res){
     try {
         const month = Number(req.query.month)
@@ -182,6 +222,9 @@ module.exports = {
     updateTask,
     deleteTask,
     getByStatus,
-    getByMonth    
+    getByMonth,
+    getAllTaskCount,
+    getTotalCompletedTask,
+    getTotalInProgressTask    
 }
 
