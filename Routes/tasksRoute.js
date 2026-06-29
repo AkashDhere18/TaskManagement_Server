@@ -23,12 +23,12 @@ router.patch('/updateStatus/:ID',auth, updateStatus)
 router.put('/updateTask/:ID',auth,admin, updateTask)
 router.delete('/deleteTask/:ID', auth, admin, deleteTask)
 
-router.get('/getTaskByStatus/search' , getByStatus)
-router.get('/getTaskBySelectedMonth/search', getByMonth)
+router.get('/getTaskByStatus/search' ,auth, getByStatus)
+router.get('/getTaskBySelectedMonth/search',auth, getByMonth)
 
-router.get('/getAllTaskCount', getAllTaskCount)
-router.get('/getTotalCompletedTask', getTotalCompletedTask)
-router.get('/getTotalInprogressTask', getTotalInProgressTask)
+router.get('/getAllTaskCount',auth, getAllTaskCount)
+router.get('/getTotalCompletedTask',auth, getTotalCompletedTask)
+router.get('/getTotalInprogressTask',auth, getTotalInProgressTask)
 
 
 module.exports = router

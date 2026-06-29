@@ -14,7 +14,7 @@ id:{
     email:{
         type:DataTypes.STRING,
         allowNull:false,
-        unique:true
+        unique:true,
     },
     password:{
         type:DataTypes.STRING,
@@ -23,6 +23,9 @@ id:{
     role:{
         type:DataTypes.STRING,
         defaultValue:"user"
+    },
+    imgPath:{
+        type:DataTypes.STRING,
     }
 },{timestamps:true, tableName:"user"})
 

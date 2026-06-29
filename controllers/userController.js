@@ -9,16 +9,22 @@ const register = async (req,res) => {
     let {name,email,password,contactNo} = req.body
 
     try {
-        const existingUser = User.findOne({where:{email:email}})
+        if(!req.file){
+            return res.status(400).send({success:false, msg:"Please upload image"})
+        }
 
-        if(!existingUser){
+        const existingUser =await User.findOne({where:{email:email}})
+
+        if(existingUser){
            return res.status(401).send({msg:"User already exists" ,succes :false} )
         }
 
         const salt = await bcryptjs.genSaltSync(8)
         password = await bcryptjs.hashSync(password,salt)
 
-        const newUser = await User.create({name,email,password,contactNo})
+        let imgPath = `/uploads/users/${req.file.filename}`;
+
+        const newUser = await User.create({name,email,password,contactNo,imgPath})
         res.status(201).send({msg:"Registration succesfully" ,succes:true})
     } catch (error) {
         res.status(500).send({msg:"server error", succes: false})
@@ -63,12 +69,17 @@ const getUserInfo = async (req,res) => {
             }
         })
 
+        if(loggedUser.imgPath){
+            imgPath = 'http://localhost:5003/'+loggedUser.imgPath
+        }
+
         // if(!loggedUser){
         //     return res.status(400).send({msg:"User not found" ,succes :false} )
 
         // }
+        userData = {...loggedUser, imgPath,}
 
-        res.status(200).send({loggedUser:loggedUser,succes:true})
+        res.status(200).send({loggedUser:userData,succes:true})
     } catch (error) {
         res.status(500).send({msg:"server error", succes: false})
     }
